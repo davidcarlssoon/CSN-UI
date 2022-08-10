@@ -1,0 +1,166 @@
+#topNav {
+    height: 130px;
+    background-color: #3c1e5f;
+}
+
+#topNavContent {
+    position: relative;
+    margin: 0 auto;
+    width: 1250px;
+    padding-top: 30px;
+}
+
+#bottomNav {
+    height: 50px;
+    border-width: 0.5px;
+    border-color: #cdd1c7;
+    border-bottom-style: solid;
+}
+
+#bottomNavContent {
+    width: 1250px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#bottomNavLeftContent {
+    float: left;
+    width: 500px;
+}
+
+#bottomNavRightContent {
+    float: right;
+    width: 500px;
+}
+
+#contentDiv {
+    width: 1250px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#leftMenuDiv {
+    margin-top: 20px;
+    width: 250px;
+    float: left;
+}
+
+#rightContentDiv {
+    margin-top: 20px;
+    width: 1300px;
+}
+
+.btn-primary {
+    background-color: #3c1e5f !important; 
+    border-style: none; 
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #25123a !important;
+}
+
+.btn-warning {
+    background-color: #fed164 !important;
+    color: #404040 !important;
+}
+
+.btn-warning:hover {
+    background-color: #fec134 !important;
+}
+
+.btn-danger {
+    background-color: #ee7c7d !important;
+}
+
+.btn-danger:hover {
+    background-color: #ea6163 !important;
+}
+
+.btn {
+    border-style: none; 
+    font-weight: bold;
+}
+
+#cardDiv {
+    width: 950px;
+    height: 2000px;
+}
+
+.card.text-center {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #f9f7f6;
+}
+
+.card {
+    width: 295px;
+    height: 410px;
+    float: left;
+    background-color: #f9f7f6;
+}
+
+.textDiv {
+    margin-top: 10px; 
+    height:270px; 
+    overflow-y: scroll;
+    overflow: auto;
+}
+
+.headlineDiv {
+    height: 50px; 
+    margin-top: 5px;
+    position: relative;
+}
+
+.card-text {
+    font-size: 80%;
+    padding-right: 3px;
+}
+
+.card-title {
+    font-size: 95%;
+}
+
+.card-body {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+
+.center-vertically {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%);
+    transform: translate(-50%, -50%);
+    width: 250px;
+}
+
+.distance-20 {
+    padding-bottom: 20px;
+}
+
+ngb-modal-window, ngb-modal-backdrop {
+    z-index: 1 !important;
+    --bs-modal-zindex: 1 !important;
+}
+
+.modal {
+    --bs-modal-zindex: 1 !important;
+}
+
+select {
+    color: #757575;
+}
+
+select:focus {
+    color: black;
+}
+
+option {
+    color: black;
+}
+

@@ -1,0 +1,207 @@
+<head>
+  <script src="scripts/jquery-3.3.1.min.js"></script>
+  <script src="scripts/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div id="topNav">
+    <div id="topNavContent">
+      <img src="./assets/csn_topnav.png" height="100%" width="100%" style="cursor: pointer;">
+    </div>
+  </div>
+
+  <div id="bottomNav">
+    <div id="bottomNavContent">
+      <div id="bottomNavLeftContent">
+        <p style="display: inline-block; cursor: pointer; font-size: 100%; margin-top: 15px;">Min startsida &nbsp; > &nbsp; </p>
+        <p style="display: inline-block; cursor: pointer; font-size: 100%; margin-top: 15px; color: #e4022d">Redigering av API:er</p>
+      </div>
+
+      <div id="bottomNavRightContent">
+        <img src="./assets/csn_icons.png" height="45%" width="45%" style="cursor: pointer; float: right; padding-top: 15px;">
+      </div>
+    </div>
+  </div>
+
+  <div id="contentDiv">
+    <div id="leftMenuDiv">
+      <img src="./assets/csn_leftmenu.png" height="100%" width="95%" style="cursor: pointer;">
+    </div>
+    
+    <div id="rightContentDiv">
+      <div style="padding-left: 325px; padding-top: 40px; width: 1250px;">
+        <h1 style="font-size: 180%; color: #404040">Redigering av CSN:s information på Mittuniversitetets hemsida</h1>
+        <p style="font-size: 100%; color: #404040">Här sker redigering av myndighetens API:er för kommunikation till externa hemsidor. Denna sida är 
+          endast en prototyp men skulle senare kunna fyllas på med flera funktioner.<br>En artikel läggs till i API:et genom att hämta en 
+          "headless-länk" i Sitevision och infoga i formuläret nedan. Utöver det väljs också målgrupper samt start- och slutdatum för när artikeln 
+          ska visas hos mottagaren. Vilka målgrupper som väljs styr vilka API:er artikeln skickas till.</p>
+      </div>
+
+      <div style="float: left; padding-left: 90px; padding-top: 30px;">
+        <h2 style="font-size: 150%; color: #404040; padding-bottom: 10px;">Lägg till artikel i API:et</h2>
+
+        <form #addMessage="ngForm" (ngSubmit)="createPost(addMessage.value)" style="font-size: 100%; width: 900px; color: #404040">
+          
+          <div style= "display: inline-block; height: 6px; width: 37%; padding-bottom: 110px; padding-right: 20px;">
+            <csn-label for="url">Länk</csn-label><br>
+            <csn-input>
+              <input csnInputRef [disableISO88591Validation]="true" required id="csnnummer" name="url" placeholder="URL:"
+                style="width: 100%" type="text" ngModel ngModel />
+            </csn-input>
+          </div>
+
+          <div style="display: inline-block; height: 5px; width: 37%; padding-bottom: 110px; padding-right: 20px; position: relative; top: 5px;">
+            <csn-label>Målgrupp</csn-label>
+            <mat-form-field appearance="outline" style= "width: 100%;">
+              <mat-label style="color: #757575;">Målgrupp:</mat-label>
+              <mat-select name="targetGroup" multiple style="background-color: white !important;" ngModel>
+                <mat-option *ngFor="let data of myData" [value]="data">{{data}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div style= "display: inline-block; height: 6px; width: 37%; padding-bottom: 110px; padding-right: 20px;">
+            <csn-form-field>
+              <csn-label for="startDate">Startdatum</csn-label>
+              <csn-input>
+                  <input csnInputRef type="CSN-date" name="startDate" placeholder="Startdatum:" ngModel/>
+              </csn-input>
+            </csn-form-field>
+          </div>
+          
+          <div style= "display: inline-block; height: 6px; width: 37%; padding-bottom: 110px; padding-right: 20px;">
+            <csn-form-field>
+              <csn-label for="endDate">Slutdatum</csn-label>
+              <csn-input>
+                  <input csnInputRef type="CSN-date" name="endDate" placeholder="Slutdatum:" ngModel/>
+              </csn-input>
+            </csn-form-field>
+          </div>
+          <br>
+
+          <csn-button [isLoading]="false" [ripple]="false" [class]='"csnui-button-primary"' [fullWidth]="false"
+            [center]="false" [noShadow]="true" [disabled]="false" type="submit" value="submit">Skicka</csn-button>
+
+        </form>
+      </div>
+
+      <div style="float: left; padding-left: 300px; padding-top: 40px;">
+        <br><h2 style="font-size: 150%; color: #404040; padding-left: 40px; padding-bottom: 10px;">Innehåll i API:et</h2>
+
+        <div id="cardDiv">
+          <div *ngFor="let message of apiResponse?.messages">
+            <div class="card text-center shadow p-3 mb-5 bg-white rounded" style="margin-left: 10px; margin-right: 10px; margin-bottom: 20px !important; padding: 10px !important;">
+              <div class="card-body">
+                <div class="headlineDiv">
+                  <div class="center-vertically">
+                    <h5 class="card-title">{{ message.headline }}</h5>
+                  </div>
+                </div>
+                <div class="textDiv">
+                  <p class="card-text" style="text-align: left; line-height: 170%;">{{ message.text }}</p>
+                </div>
+                <div style="margin-top: 10px;">
+                  <a (click)="open(editModal, message)" style="margin-right: 10px;" class="btn btn-warning">Redigera</a>
+                  <a (click)="removePost(message.id2)" style="margin-left: 10px;" class="btn btn-danger">Ta bort</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for editing messages -->
+  <ng-template #editModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="font-weight: bold" id="modal-basic-title">Redigera meddelande</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="editPost(editModal)" [formGroup]="fGroup">
+        <div class="form-group distance-20">
+          <csn-label for="messageTitle">Titel</csn-label><br>
+          <csn-input>
+            <input csnInputRef [disableISO88591Validation]="true" placeholder="Titel:" formControlName="messageTitle" style="width: 100%;" type="text" />
+          </csn-input>
+        </div>
+          <div class="form-group distance-20">
+            <csn-label for="messageText">Text</csn-label><br>
+            <csn-textarea>
+              <textarea csnInputRef [attr.maxlength]="250" placeholder="Text:" formControlName="messageText"  type="text"></textarea>
+            </csn-textarea>
+
+        </div>
+        <div class="form-group distance-20">
+          <csn-label for="messageLink">Länk</csn-label><br>
+          <csn-input>
+            <input csnInputRef [disableISO88591Validation]="true"  placeholder="URL:" formControlName="messageLink" style="width: 100%" type="text" />
+          </csn-input>
+        </div>
+        <div class="form-group distance-20">
+          <csn-label for="messageAuthor">Författare</csn-label><br>
+          <csn-input>
+            <input csnInputRef [disableISO88591Validation]="true" placeholder="Författare:" formControlName="messageAuthor" style="width: 100%" type="text" />
+          </csn-input>
+        </div>
+        <div class="form-group distance-20">
+          <csn-form-field>
+            <csn-label for="messageStartDate">Startdatum</csn-label>
+            <csn-input>
+                <input csnInputRef type="CSN-date" formControlName="messageStartDate" placeholder="Startdatum:"/>
+            </csn-input>
+          </csn-form-field>
+        </div>
+        <div class="form-group distance-20">
+          <csn-form-field>
+            <csn-label for="messageEndDate">Slutdatum</csn-label>
+            <csn-input>
+                <input csnInputRef type="CSN-date" formControlName="messageEndDate" placeholder="Slutdatum:"/>
+            </csn-input>
+          </csn-form-field>
+        </div>
+        <div class="form-group distance-20">
+          <csn-form-field>
+            <csn-label for="messagePublishingDate">Publiceringsdatum</csn-label>
+            <csn-input>
+                <input csnInputRef type="CSN-date" formControlName="messagePublishingDate" placeholder="Publiceringsdatum:"/>
+            </csn-input>
+          </csn-form-field>
+        </div>
+
+        <div class="form-group">
+          <csn-label>Målgrupp</csn-label>
+          <mat-form-field appearance="outline" style= "width: 100%;">
+            <mat-label style="color: #757575;">Målgrupp:</mat-label>
+            <mat-select formControlName="messageTargetGroup" multiple style="background-color: white !important;">
+              <mat-option class="targetValues" *ngFor="let data of myData" [value]="data">{{data}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!--Hidden values that are sent to handle the message in editPost()-->
+
+        <div class="form-group">
+          <csn-input>
+            <input csnInputRef [disableISO88591Validation]="true" placeholder="Id2:" formControlName="messageId" style="width: 100%" type="text" type="hidden" />
+          </csn-input>
+        </div>
+        <div class="form-group">
+          <csn-input>
+            <input csnInputRef [disableISO88591Validation]="true" placeholder="shortId:" formControlName="messageShortId" style="width: 100%" type="text" type="hidden" />
+          </csn-input>
+        </div>
+
+        <!--Buttons to close or save-->
+        
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Spara</button>
+          <button type="button" class="btn btn-warning" (click)="modal.close('Save click')">Stäng</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+</body>

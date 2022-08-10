@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+ngb-modal-window, ngb-modal-backdrop {
+    z-index: 1 !important;
+    --bs-modal-zindex: 1 !important;
+}
+
+csn-icon.csnui-select__icon-checkmark.csnui-select__icon-right.csnui-animation--popIn.ng-star-inserted {
+    display: none;
+    visibility: hidden;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+div.mat-form-field-flex.ng-tns-c196-0 {
+    background-color: white !important;
+    height: 62px !important;
+    
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #b1a5bf !important;
+}
+
+div#mat-select-0-panel.ng-tns-c199-1.ng-trigger.ng-trigger-transformPanel.mat-select-panel.mat-primary {
+    min-width: 112% !important;
+    margin-left: 15px !important;
+    margin-top: 45px !important;
+}
+
+div.mat-form-field-infix.ng-tns-c196-0 {
+    margin-left: 15px !important;
+}
