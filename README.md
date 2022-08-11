@@ -6,6 +6,8 @@ Användarportalen är utvecklad för att användas i CSN:s intranät för att ku
 Webbappen tar emot information från en Sitevision-länk och skickar relevanta delar vidare till rätt API.
 Eftersom detta endast är en prototyp skickas i dagsläget all information till ett API men tanken är att informationen ska fördelas
 över olika API:er beroende på vilken målgrupp som väljs.
+I denna app har en del av CSN:s egna angular-komponenter använts men den bakomliggande logiken kan implementeras på vilken
+organisation som helst.
 
 För frågor, kontakta oss på:
 
